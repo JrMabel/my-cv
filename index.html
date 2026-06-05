@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="CV - Mabel Jiménez Reyes, Informatikingenieurin mit über 6 Jahren Erfahrung in C# .NET, SQL, CPQ und Webentwicklung. Basierend in Basel, Schweiz.">
+    <meta name="keywords" content="Lebenslauf, Informatikingenieurin, C#, SQL, CPQ, Eaton, Salesforce, Webentwicklung, Basel">
+    <meta name="author" content="Mabel Jiménez Reyes">
+    <meta name="robots" content="index, follow">
+    <title>Mabel Jiménez Reyes | Informatikingenieurin & Softwareentwicklerin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="theme-toggle" id="themeToggle" aria-label="Tema dunkel/hell">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <main class="container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="profile-pic">
+                <img src="https://placehold.co/500x500/2c3e50/ffffff?text=MJR" alt="Mabel Jiménez Reyes" id="profileImage">
+            </div>
+            
+            <div class="contact-info">
+                <h3><i class="fas fa-address-card"></i> Kontakt</h3>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> <span id="userEmail">Mabel.JR28@gmail.com</span></li>
+                    <li><i class="fas fa-phone-alt"></i> <span id="userPhone">+41 76 785 1011</span></li>
+                    <li><i class="fas fa-map-marker-alt"></i> <span id="userLocation">Kastelstrasse 34, 4054 Basel</span></li>
+                    <li><i class="fab fa-github"></i> <span id="userGithub">github.com/JrMabel</span></li>
+                    <li><i class="fas fa-calendar-alt"></i> <span id="userBirth">28.10.1994</span></li>
+                    <li><i class="fas fa-id-card"></i> <span id="userPermit">B-Bewilligung (Familienangehöriger)</span></li>
+                </ul>
+            </div>
+
+            <div class="languages-section">
+                <h3><i class="fas fa-language"></i> Sprachen</h3>
+                <ul class="language-list">
+                    <li><span>Spanisch</span> <span class="level">Muttersprache</span></li>
+                    <li><span>Deutsch</span> <span class="level">B2 (laufend)</span></li>
+                    <li><span>Englisch</span> <span class="level">B2</span></li>
+                </ul>
+            </div>
+
+            <div class="skills-section">
+                <h3><i class="fas fa-code"></i> Technische Fähigkeiten</h3>
+                <ul class="skill-list" id="skillsList"></ul>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <header class="hero">
+                <h1 id="userFullname">Mabel Jiménez Reyes</h1>
+                <p class="tagline" id="userTitle">Informatikingenieurin | Softwareentwicklerin | CPQ-Spezialistin</p>
+                <div class="intro" id="userIntro">
+                    <i class="fas fa-quote-left"></i> 
+                    <span>Informatikingenieurin mit über 6 Jahren Erfahrung in C# .NET, SQL und CPQ-Plattformen. Erfahrung im sicherheitsrelevanten militärischen Umfeld sowie in der internationalen Zusammenarbeit.</span>
+                </div>
+            </header>
+
+            <section class="about-me">
+                <h2><i class="fas fa-user-astronaut"></i> Über Mich</h2>
+                <div id="aboutText" class="about-text"></div>
+            </section>
+
+            <section class="personal-projects">
+                <h2><i class="fas fa-laptop-code"></i> Persönliche Projekte & Weiterbildung</h2>
+                <div id="projectsList" class="projects-grid"></div>
+            </section>
+
+            <section class="experience">
+                <h2><i class="fas fa-briefcase"></i> Berufserfahrung</h2>
+                <div id="experienceList" class="timeline"></div>
+            </section>
+
+            <section class="other-work">
+                <h2><i class="fas fa-utensils"></i> Nebenberufliche Tätigkeiten</h2>
+                <div id="otherWorkList" class="timeline"></div>
+            </section>
+
+            <section class="education">
+                <h2><i class="fas fa-graduation-cap"></i> Ausbildung & Zertifikate</h2>
+                <div id="educationList" class="education-grid"></div>
+            </section>
+
+            <section class="comments-section">
+                <h2><i class="fas fa-comment-dots"></i> Kommentare & Referenzen</h2>
+                <div class="comment-form">
+                    <input type="text" id="commentName" placeholder="Ihr Name" class="comment-input">
+                    <textarea id="commentMsg" rows="2" placeholder="Schreiben Sie einen Kommentar oder eine Empfehlung..." class="comment-textarea"></textarea>
+                    <button id="addCommentBtn" class="btn-primary"><i class="fas fa-paper-plane"></i> Kommentar senden</button>
+                </div>
+                <div id="commentsList" class="comments-list"></div>
+            </section>
+        </div>
+    </main>
+
+    <div class="edit-panel-btn" id="editPanelBtn">
+        <i class="fas fa-pen-fancy"></i> CV bearbeiten
+    </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>CV Editor <i class="fas fa-edit"></i></h2>
+            <form id="cvEditorForm">
+                <div class="form-row">
+                    <div class="form-group"><label>Vollständiger Name:</label><input type="text" id="editFullname"></div>
+                    <div class="form-group"><label>Titel:</label><input type="text" id="editTitle"></div>
+                </div>
+                <div class="form-group"><label>Kurze Einführung:</label><textarea id="editIntro" rows="2"></textarea></div>
+                <div class="form-group"><label>Über mich (detailliert):</label><textarea id="editAbout" rows="4"></textarea></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Foto URL:</label><input type="text" id="editPhotoUrl"></div>
+                    <div class="form-group"><label>E-Mail:</label><input type="email" id="editEmail"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Telefon:</label><input type="text" id="editPhone"></div>
+                    <div class="form-group"><label>Adresse:</label><input type="text" id="editLocation"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>GitHub:</label><input type="text" id="editGithub"></div>
+                    <div class="form-group"><label>Geburtsdatum:</label><input type="text" id="editBirth"></div>
+                </div>
+                <div class="form-group"><label>Aufenthaltsbewilligung:</label><input type="text" id="editPermit"></div>
+                
+                <div class="form-group"><label>Technische Fähigkeiten (kommagetrennt):</label><textarea id="editSkills" rows="2"></textarea></div>
+                
+                <div class="form-group"><label>Persönliche Projekte (JSON):</label><textarea id="editProjects" rows="4"></textarea></div>
+                <div class="form-group"><label>Berufserfahrung (JSON):</label><textarea id="editExperiences" rows="5"></textarea></div>
+                <div class="form-group"><label>Nebenberufliche Tätigkeiten (JSON):</label><textarea id="editOtherWork" rows="3"></textarea></div>
+                <div class="form-group"><label>Ausbildung & Zertifikate (JSON):</label><textarea id="editStudies" rows="5"></textarea></div>
+
+                <button type="submit" class="btn-save"><i class="fas fa-save"></i> Speichern</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2025 Mabel Jiménez Reyes | Aktualisiert: März 2025</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
