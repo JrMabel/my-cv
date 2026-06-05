@@ -1,4 +1,4 @@
-/* styles.css - Modernes, responsives Design */
+/* styles.css - Modernes, responsives Design mit blauem Farbschema */
 * {
     margin: 0;
     padding: 0;
@@ -13,6 +13,7 @@ body {
     transition: background 0.3s, color 0.2s;
 }
 
+/* LIGHT MODE - Blaues Farbschema */
 :root {
     --bg-body: #f0f4f8;
     --bg-sidebar: #ffffff;
@@ -26,6 +27,7 @@ body {
     --comment-bg: #f9fafb;
 }
 
+/* DARK MODE - Blaues Farbschema */
 body.dark {
     --bg-body: #0f172a;
     --bg-sidebar: #1e293b;
@@ -120,6 +122,7 @@ body.dark {
     flex: 2.8;
 }
 
+/* Header mit blauem Verlauf */
 .hero {
     background: linear-gradient(135deg, var(--accent) 0%, #1e3a8a 100%);
     padding: 2rem;
@@ -234,6 +237,11 @@ section h2 {
     cursor: pointer;
     box-shadow: var(--shadow-sm);
     z-index: 100;
+    transition: all 0.2s;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
 }
 
 .edit-panel-btn {
@@ -274,12 +282,33 @@ section h2 {
     position: relative;
 }
 
-.close-modal {
+.close-modal, .close-login {
     position: absolute;
     top: 1rem;
     right: 1.5rem;
     font-size: 2rem;
     cursor: pointer;
+    transition: all 0.2s;
+}
+
+.close-modal:hover, .close-login:hover {
+    transform: scale(1.2);
+    color: var(--accent);
+}
+
+.login-modal {
+    max-width: 450px;
+    text-align: center;
+}
+
+.login-modal h2 {
+    margin-bottom: 1.5rem;
+}
+
+.modal-note {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 1rem;
 }
 
 .form-row {
