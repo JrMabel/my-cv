@@ -1,4 +1,8 @@
-// script.js - CV Interaktiv mit Ihren echten Daten
+// script.js - CV Interaktiv mit Login-Schutz für Admin
+
+// ========== ADMIN PASSWORT (ÄNDERN SIE DAS!) ==========
+const ADMIN_PASSWORD = "Mabel2025"; // ← HIER IHR PERSÖNLICHES PASSWORT EINTRAGEN
+let isAdmin = false;
 
 // ========== IHRE ECHTEN DATEN ==========
 let cvData = {
@@ -51,7 +55,7 @@ let cvData = {
 // Kommentare in localStorage
 let comments = [];
 
-// ========== HELPER ==========
+// ========== HELPER FUNCTIONS ==========
 function escapeHtml(str) {
     if(!str) return "";
     return str.replace(/[&<>]/g, function(m) {
@@ -152,8 +156,34 @@ function addComment(name, text) {
     renderComments();
 }
 
+// ========== LOGIN MODAL FUNCTIONS ==========
+function showLoginModal() {
+    document.getElementById("loginModal").style.display = "block";
+}
+
+function closeLoginModal() {
+    document.getElementById("loginModal").style.display = "none";
+    document.getElementById("adminPassword").value = "";
+}
+
+function attemptLogin(password) {
+    if (password === ADMIN_PASSWORD) {
+        isAdmin = true;
+        closeLoginModal();
+        openEditor();
+        alert("✅ Zugang gewährt! Sie können jetzt den CV bearbeiten.");
+    } else {
+        alert("❌ Falsches Passwort. Zugang verweigert.");
+    }
+}
+
 // ========== EDITOR MODAL ==========
 function openEditor() {
+    if (!isAdmin) {
+        showLoginModal();
+        return;
+    }
+    
     document.getElementById("editFullname").value = cvData.fullname;
     document.getElementById("editTitle").value = cvData.title;
     document.getElementById("editIntro").value = cvData.intro;
@@ -179,6 +209,12 @@ function closeModal() {
 
 function saveEditorData(e) {
     e.preventDefault();
+    
+    if (!isAdmin) {
+        alert("🔒 Sie sind nicht autorisiert. Bitte melden Sie sich an.");
+        return;
+    }
+    
     cvData.fullname = document.getElementById("editFullname").value;
     cvData.title = document.getElementById("editTitle").value;
     cvData.intro = document.getElementById("editIntro").value;
@@ -197,10 +233,14 @@ function saveEditorData(e) {
         cvData.experiences = JSON.parse(document.getElementById("editExperiences").value);
         cvData.otherWork = JSON.parse(document.getElementById("editOtherWork").value);
         cvData.education = JSON.parse(document.getElementById("editStudies").value);
-    } catch(err) { alert("Fehler im JSON-Format! Bitte korrigieren Sie die Syntax."); return; }
+    } catch(err) { 
+        alert("Fehler im JSON-Format! Bitte korrigieren Sie die Syntax.\n" + err.message); 
+        return; 
+    }
     
     renderCV();
     closeModal();
+    alert("✅ CV erfolgreich aktualisiert!");
 }
 
 // ========== DARK MODE ==========
@@ -213,12 +253,13 @@ function initTheme() {
     });
 }
 
-// ========== INIT ==========
+// ========== INITIALISIERUNG ==========
 document.addEventListener("DOMContentLoaded", () => {
     loadComments();
     renderCV();
     initTheme();
     
+    // Kommentar hinzufügen
     document.getElementById("addCommentBtn").addEventListener("click", () => {
         const name = document.getElementById("commentName").value;
         const msg = document.getElementById("commentMsg").value;
@@ -228,8 +269,31 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("commentMsg").value = "";
     });
     
-    document.getElementById("editPanelBtn").addEventListener("click", openEditor);
+    // Editor Button - zeigt Login an wenn nicht authentifiziert
+    document.getElementById("editPanelBtn").addEventListener("click", () => {
+        if (isAdmin) {
+            openEditor();
+        } else {
+            showLoginModal();
+        }
+    });
+    
+    // Login Modal Events
+    document.querySelector(".close-login").addEventListener("click", closeLoginModal);
+    window.addEventListener("click", (e) => { 
+        if (e.target === document.getElementById("loginModal")) closeLoginModal(); 
+    });
+    
+    document.getElementById("loginForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const password = document.getElementById("adminPassword").value;
+        attemptLogin(password);
+    });
+    
+    // Editor Modal Events
     document.querySelector(".close-modal").addEventListener("click", closeModal);
-    window.addEventListener("click", (e) => { if(e.target === document.getElementById("editModal")) closeModal(); });
+    window.addEventListener("click", (e) => { 
+        if (e.target === document.getElementById("editModal")) closeModal(); 
+    });
     document.getElementById("cvEditorForm").addEventListener("submit", saveEditorData);
 });
