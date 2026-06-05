@@ -104,6 +104,23 @@
         <i class="fas fa-pen-fancy"></i> CV bearbeiten
     </div>
 
+    <!-- Modal de Login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content login-modal">
+            <span class="close-login">&times;</span>
+            <h2><i class="fas fa-lock"></i> Zugang Administration</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Passwort:</label>
+                    <input type="password" id="adminPassword" placeholder="Administrator-Passwort eingeben" autocomplete="off">
+                </div>
+                <button type="submit" class="btn-save"><i class="fas fa-key"></i> Zugang gewähren</button>
+            </form>
+            <p class="modal-note">⚠️ Nur der Administrator kann den CV bearbeiten.</p>
+        </div>
+    </div>
+
+    <!-- Modal Editor (solo visible después del login) -->
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
